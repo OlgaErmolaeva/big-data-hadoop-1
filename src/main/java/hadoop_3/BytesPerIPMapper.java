@@ -10,6 +10,7 @@ import java.io.IOException;
 public class BytesPerIPMapper extends Mapper<LongWritable, Text, Text, PairWritable> {
     private static final Logger logger = Logger.getLogger(BytesPerIPMapper.class);
     private IpByteParser parser = new IpByteParser();
+    private UserAgentParser userAgentParser = new UserAgentParser();
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -17,8 +18,8 @@ public class BytesPerIPMapper extends Mapper<LongWritable, Text, Text, PairWrita
         String line = value.toString();
 
         String ip = parser.parseIP(line);
-       long bytes = parser.parseBytes(line);
-
+        long bytes = parser.parseBytes(line);
+        context.getCounter("User Agent", userAgentParser.parseUserAgent(line)).increment(1);
         context.write(new Text(ip), new PairWritable(1, bytes));
     }
 }
