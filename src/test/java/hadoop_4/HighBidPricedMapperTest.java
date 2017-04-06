@@ -1,11 +1,10 @@
-package hadoop_1;
+package hadoop_4;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class LongestWordMapperTest {
+public class HighBidPricedMapperTest {
 
     private MapDriver<LongWritable, Text, NullWritable, Text> mapDriver;
     private ReduceDriver<NullWritable, Text, IntWritable, Text> reduceDriver;
@@ -29,7 +28,7 @@ public class LongestWordMapperTest {
 
     @Test
     public void LongestWordMapperTest() {
-        LongestWordMapper mapper = new LongestWordMapper();
+        HighBidPricedMapper mapper = new HighBidPricedMapper();
         new MapDriver<LongWritable, Text, NullWritable, Text>()
             .withMapper(mapper)
             .withInput(new LongWritable(),new Text(input))
@@ -39,7 +38,7 @@ public class LongestWordMapperTest {
 
     @Test
     public void LongestWordReducerTest() {
-        LongestWordReducer reducer = new LongestWordReducer();
+        HighBidPricedReducer reducer = new HighBidPricedReducer();
         List<Text> inputList = Arrays.asList(new Text("qwert"),new Text("asdfghjkl"));
         new ReduceDriver<NullWritable, Text, IntWritable, Text>()
             .withReducer(reducer)
