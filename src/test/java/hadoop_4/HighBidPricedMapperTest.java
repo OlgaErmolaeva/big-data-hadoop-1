@@ -11,13 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class HighBidPricedMapperTest {
-/*
-    private MapDriver<LongWritable, Text, NullWritable, Text> mapDriver;
-    private ReduceDriver<NullWritable, Text, IntWritable, Text> reduceDriver;
+
     private String input;
 
     @Before
@@ -29,21 +28,21 @@ public class HighBidPricedMapperTest {
     @Test
     public void LongestWordMapperTest() {
         HighBidPricedMapper mapper = new HighBidPricedMapper();
-        new MapDriver<LongWritable, Text, NullWritable, Text>()
+        new MapDriver<LongWritable, Text, Text, IntWritable> ()
             .withMapper(mapper)
             .withInput(new LongWritable(),new Text(input))
-            .withOutput(NullWritable.get(), new Text("asdfghjkl"))
+            .withOutput(new Text(), new IntWritable())
             .runTest();
     }
 
     @Test
     public void LongestWordReducerTest() {
         HighBidPricedReducer reducer = new HighBidPricedReducer();
-        List<Text> inputList = Arrays.asList(new Text("qwert"),new Text("asdfghjkl"));
-        new ReduceDriver<NullWritable, Text, IntWritable, Text>()
+        List<IntWritable> inputList = Arrays.asList();
+        new ReduceDriver<Text, IntWritable, Text, IntWritable>()
             .withReducer(reducer)
-            .withInput(NullWritable.get(),inputList)
-            .withOutput(new IntWritable(9), new Text("asdfghjkl"))
+            .withInput(new Text(), inputList)
+            .withOutput(new Text(), new IntWritable())
             .runTest();
-    }*/
+    }
 }

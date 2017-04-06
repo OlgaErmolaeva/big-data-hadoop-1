@@ -27,20 +27,18 @@ public class CityCachParser {
     }
 
     private void addKeyValueFromLine(String line) {
-        int startOfKey = StringUtils.ordinalIndexOf(line, "    ", 0);
-        int endOfKey = StringUtils.ordinalIndexOf(line, "    ", 0);
+        int endOfKey = StringUtils.ordinalIndexOf(line, "\t", 1);
         String cityCode = "";
         try {
-            cityCode = line.substring(startOfKey, endOfKey);
+            cityCode = line.substring(0, endOfKey);
         } catch (Exception e) {
             logger.error("Cannot parse line from cache file, line: " + line + "Exception: " + e);
         }
         if (!cityCode.isEmpty()) {
-            int startOfValue = StringUtils.ordinalIndexOf(line, "    ", 0);
-            int endOfValue = StringUtils.ordinalIndexOf(line, "    ", 0);
+            int startOfValue = StringUtils.ordinalIndexOf(line, "\t", 1)+1;
             String cityName = "";
             try {
-                cityName = line.substring(startOfValue, endOfValue);
+                cityName = line.substring(startOfValue);
             } catch (Exception e) {
                 logger.error("Cannot parse line from cache file, line: " + line + "Exception: " + e);
 
