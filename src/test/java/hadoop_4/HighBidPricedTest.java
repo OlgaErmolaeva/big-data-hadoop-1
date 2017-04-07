@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HighBidPricedMapperTest {
+public class HighBidPricedTest {
 
     private String input;
 
@@ -26,23 +26,24 @@ public class HighBidPricedMapperTest {
     }
 
     @Test
-    public void LongestWordMapperTest() {
+    public void HighBidPricedMapperTest() throws IOException {
         HighBidPricedMapper mapper = new HighBidPricedMapper();
-        new MapDriver<LongWritable, Text, Text, IntWritable> ()
+        new MapDriver<LongWritable, Text, Text, IntWritable>()
             .withMapper(mapper)
-            .withInput(new LongWritable(),new Text(input))
-            .withOutput(new Text(), new IntWritable())
+            .withInput(new LongWritable(), new Text(input))
+            .withCacheFile("/files/city.en.txt")
+            .withOutput(new Text("234"), new IntWritable(280))
             .runTest();
     }
 
     @Test
-    public void LongestWordReducerTest() {
+    public void LongestWordReducerTest() throws IOException {
         HighBidPricedReducer reducer = new HighBidPricedReducer();
-        List<IntWritable> inputList = Arrays.asList();
+        List<IntWritable> inputList = Arrays.asList(new IntWritable(250), new IntWritable(280), new IntWritable(350));
         new ReduceDriver<Text, IntWritable, Text, IntWritable>()
             .withReducer(reducer)
-            .withInput(new Text(), inputList)
-            .withOutput(new Text(), new IntWritable())
+            .withInput(new Text("234"), inputList)
+            .withOutput(new Text("234"), new IntWritable(350))
             .runTest();
     }
 }

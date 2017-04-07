@@ -29,7 +29,6 @@ public class HighBidPricedMain extends Configured implements Tool {
     public int run(String[] args) throws Exception {
         Job job = Job.getInstance(this.getConf());
 
-        job.setJarByClass(HighBidPricedMain.class);
         job.setMapperClass(HighBidPricedMapper.class);
         job.setReducerClass(HighBidPricedReducer.class);
         job.setMapOutputKeyClass(Text.class);
@@ -41,6 +40,7 @@ public class HighBidPricedMain extends Configured implements Tool {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         //job.addCacheFile(new Path(args[2]).toUri());
+        job.setJarByClass(HighBidPricedMain.class);
 
         return job.waitForCompletion(true) ? 0 : 1;
     }

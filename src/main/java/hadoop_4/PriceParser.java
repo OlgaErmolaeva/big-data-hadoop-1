@@ -8,8 +8,8 @@ public class PriceParser {
     private Logger logger = Logger.getLogger(PriceParser.class);
 
     public int parsePrice(String line) {
-        int start = StringUtils.ordinalIndexOf(line, "    ", 0);
-        int end = StringUtils.ordinalIndexOf(line, "    ", 0);
+        int start = StringUtils.ordinalIndexOf(line, "\t", 20)+1;
+        int end = StringUtils.ordinalIndexOf(line, "\t", 21);
         String priceAsString = line.substring(start, end);
         int result = 0;
         try {

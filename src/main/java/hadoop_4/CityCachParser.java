@@ -22,6 +22,7 @@ public class CityCachParser {
                 addKeyValueFromLine(line);
             }
         } catch (IOException e) {
+            logger.error("Cannot read cache from file "+filePath +" "+ e);
         }
         return citiesNames;
     }

@@ -18,7 +18,7 @@ public class HighBidPricedMapper extends Mapper<LongWritable, Text, Text, IntWri
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        citiesNames = cityCachParser.getCitiesNames("city.en.txt");
+        citiesNames = cityCachParser.getCitiesNames("/city.en.txt");
     }
 
     @Override
