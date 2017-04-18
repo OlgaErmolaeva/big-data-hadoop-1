@@ -1,5 +1,7 @@
 package hadoop_4;
 
+import eu.bitwalker.useragentutils.OperatingSystem;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -8,17 +10,16 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 import java.util.Map;
 
-public class HighBidPricedMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class HighBidPricedMapper extends Mapper<LongWritable, Text, PairWritable, IntWritable> {
 
     private PriceParser priceParser = new PriceParser();
     private CityParser cityParser = new CityParser();
     private CityCachParser cityCachParser = new CityCachParser();
-
     private Map<String, String> citiesNames;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        citiesNames = cityCachParser.getCitiesNames("/city.en.txt");
+        citiesNames = cityCachParser.getCitiesNames("city.en.txt");
     }
 
     @Override
@@ -33,7 +34,10 @@ public class HighBidPricedMapper extends Mapper<LongWritable, Text, Text, IntWri
             if (citiesNames.containsKey(cityCode)) {
                 city = citiesNames.get(cityCode);
             }
-            context.write(new Text(city), new IntWritable(price));
+            UserAgent userAgent = new UserAgent(line);
+            String operatingSystem = userAgent.getOperatingSystem().getName();
+
+            context.write(new PairWritable(city,operatingSystem), new IntWritable(price));
         }
     }
 }

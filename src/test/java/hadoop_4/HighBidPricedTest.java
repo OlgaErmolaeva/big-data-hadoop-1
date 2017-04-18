@@ -28,11 +28,11 @@ public class HighBidPricedTest {
     @Test
     public void HighBidPricedMapperTest() throws IOException {
         HighBidPricedMapper mapper = new HighBidPricedMapper();
-        new MapDriver<LongWritable, Text, Text, IntWritable>()
+        new MapDriver<LongWritable, Text, PairWritable, IntWritable>()
             .withMapper(mapper)
             .withInput(new LongWritable(), new Text(input))
-            .withCacheFile("/files/city.en.txt")
-            .withOutput(new Text("234"), new IntWritable(280))
+            .withCacheFile("city.en.txt")
+            .withOutput(new PairWritable("zhongshan","Windows XP"), new IntWritable(280))
             .runTest();
     }
 
